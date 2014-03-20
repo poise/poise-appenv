@@ -1,0 +1,11 @@
+DEPENDENCIES
+  poise-appenv
+    path: .
+    metadata: true
+  poise-appenv_test
+    path: ./test/cookbooks/poise-appenv_test
+
+GRAPH
+  poise-appenv (1.0.0)
+  poise-appenv_test (0.0.0)
+    poise-appenv (>= 0.0.0)
