@@ -32,8 +32,8 @@ module Poise
   end
 
   module AppEnvironmentDSL
-    def app_environment
-      cookbook = node['poise-appenv']['cookbook']
+    def app_environment(cookbook=nil)
+      cookbook = node['poise-appenv']['cookbook'] unless cookbook
       raise 'Cookbook used to determine application envionment not set' unless cookbook
       AppEnvironment.app_environment(node, cookbook)
     end

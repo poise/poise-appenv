@@ -65,17 +65,18 @@ a way to apply those customizations.
 Reference
 ---------
 
-### node.app_environment
+### `node.app_environment(cookbook=nil)`
 
 `node.app_environment` returns the name of the detected application environment
-based on the configured cookbook. Note that this is a method, not a node attribute.
+based on the given or configured cookbook. Note that this is a method, not a
+node attribute.
 
-### node.app_environment?(*names)
+### `node.app_environment?(*names)`
 
 `node.app_environment?` returns true if the current application environment
 is any of the given names.
 
-### node['poise-appenv']['cookbook']
+### `node['poise-appenv']['cookbook']`
 
 `node['poise-appenv']['cookbook']` is a node attribute used to configure which
 cookbook is searched for to determine the current application environment.
