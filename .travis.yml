@@ -5,7 +5,7 @@ env:
   global:
   - KITCHEN_LOCAL_YAML=.kitchen.travis.yml
   - secure: eqhakM7Cwrqazjq3nP4AO2Q9Q1zN0v7KFr75/wfdzdD19nOqdUXHmAjUm996gF47E+g3DukXnV6zHuUTRVwgG8fvni5RxwxPf5M0S+0boKL3ZZ6p15YATKDYIEXQQWolANI/gOggr4zUBrzJUHuiS/UGM0qN7QpPIAxzIOckdvQ=
-bundler_args: --deployment --binstubs
+bundler_args: --deployment --binstubs --without vagrant
 script:
 - ./bin/foodcritic -f any .
 - ssh-keygen -f ~/.ssh/id_rsa -b 768 -P ''

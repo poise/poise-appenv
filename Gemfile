@@ -20,13 +20,14 @@ source 'https://rubygems.org'
 
 gem 'test-kitchen'
 gem 'berkshelf', github: 'berkshelf/berkshelf'
-gem 'kitchen-ec2'
-gem 'unf'
-gem 'kitchen-vagrant'
-gem 'vagrant-wrapper'
+gem 'kitchen-rackspace'
 gem 'foodcritic', '>= 3.0.3'
 gem 'chef', '~> 11.10'
 
-gem 'vagrant', github: 'mitchellh/vagrant', ref: 'v1.4.3'
-gem 'vagrant-berkshelf', github: 'berkshelf/vagrant-berkshelf'
-gem 'vagrant-omnibus'
+group(:vagrant) do
+  gem 'kitchen-vagrant'
+  gem 'vagrant-wrapper'
+  gem 'vagrant', github: 'mitchellh/vagrant', ref: 'v1.4.3'
+  gem 'vagrant-berkshelf', github: 'berkshelf/vagrant-berkshelf'
+  gem 'vagrant-omnibus'
+end

@@ -122,9 +122,10 @@ GEM
     i18n (0.6.9)
     ipaddress (0.8.0)
     json (1.8.1)
-    kitchen-ec2 (0.8.0)
-      fog
-      test-kitchen (~> 1.0)
+    kitchen-rackspace (0.4.0)
+      fog (~> 1.18)
+      test-kitchen (~> 1.1)
+      unf
     kitchen-vagrant (0.14.0)
       test-kitchen (~> 1.0)
     log4r (1.1.10)
@@ -225,10 +226,9 @@ DEPENDENCIES
   berkshelf!
   chef (~> 11.10)
   foodcritic (>= 3.0.3)
-  kitchen-ec2
+  kitchen-rackspace
   kitchen-vagrant
   test-kitchen
-  unf
   vagrant!
   vagrant-berkshelf!
   vagrant-omnibus
