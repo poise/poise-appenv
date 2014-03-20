@@ -45,6 +45,23 @@ include_recipe 'role-myapp'
 The default recipe should contain the normal code for installing your application,
 generally this will be one more `include_recipe` to other cookbooks.
 
+Application Environments
+------------------------
+
+Application environments offer a way to have different node attributes applied
+via a cookbook. Combined with [role or environment cookbooks](http://vialstudios.logdown.com/posts/166848-the-environment-cookbook-pattern)
+this lets you separate the varying configuration of an application in different
+deployment scenarios from the code to install the application.
+
+As a concrete example, imagine you have two Chef environments; prod and test.
+You run a cluster of servers in each environment with your application installed.
+Now you want to launch a new cluster in your test environment running an
+experimental build and divert some portion of traffic to it. You could create
+a new Chef environment by copying the existing test one, but almost all the
+settings will be the same, only the version to deploy and similar attributes
+need to be overridden for the new servers. Application environments give you
+a way to apply those customizations.
+
 Reference
 ---------
 
