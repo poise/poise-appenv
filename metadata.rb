@@ -22,5 +22,5 @@ version '1.0.0'
 maintainer 'Noah Kantrowitz'
 maintainer_email 'noah@coderanger.net'
 license 'Apache 2.0'
-description 'Helper library to configure application-environment-specific settings'
+description 'Helper library to configure application-specific environment settings'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
