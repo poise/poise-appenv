@@ -3,33 +3,65 @@ poise-appenv
 
 [![Build Status](https://travis-ci.org/coderanger/poise-appenv.png?branch=master)](https://travis-ci.org/coderanger/poise-appenv)
 
-Set up
-------
+Quick Start
+-----------
 
-Configure `node['poise-appenv']['cookbook']` with the name of the cookbook which
-selects your application environment.
+### Attributes
 
-poise-appenv adds two methods to node. `node.app_environment` returns the name
-of the current application environment. `node.app_envionrment?('name')` checks
-if the application environment is `'name'`.
+In your [default attributes file](test/cookbooks/poise-appenv_test/attributes/default.rb#L19)
+configure the name of the cookbook that determines your application environment:
 
-Example
--------
+```ruby
+default['poise-appenv']['cookbook'] = 'role-myapp'
+```
 
-The included (test cookbook)[tests/cookbooks/poise-appenv_test] is an example
-of full usage. In its [default attributes file](test/cookbooks/poise-appenv_test/attributes/default.rb#L19)
-we configure the cookbook name to use, and then define shared attributes or defaults
-to apply to all application environments.
+Then create one attribute file for each [app_environment](test/cookbooks/poise-appenv_test/attributes/prod.rb#L19-L20)
+with a header like:
 
-In the attributes file for each environment (ex. [prod.rb](test/cookbooks/poise-appenv_test/attributes/prod.rb))
-we include the default file to ensure it is run first, and then only process the
-rest of the file if the environment is the one the file should apply to. After
-that we have attributes that will be applied to the requested environment.
+```ruby
+include_attribute 'role-myapp'
+return unless node.app_environment?('prod')
+```
 
-In the [recipes](test/cookbooks/poise-appenv_test/recipes) we have a default
-recipe which does the logic for the application (generally just `include_recipe`
-on other recipes). We also have stub recipes for each application environment
-which just include the default.
+This header will prevent executing the file unless the app_environment
+matches the given name(s). Put any shared attributes on the `default.rb` file
+and per-app_environment attribute in the relevant file.
+
+### Recipes
+
+The cookbook specified in `node['poise-appenv']['cookbook']` is used to determine
+which app_environment we are in. Each recipe within the cookbook maps to an
+app_environment of that name, so adding `role-myapp::prod` to the run list
+will mark the node as being in the `prod` app_environment. If you add plain
+`role-myapp` to the run list, it will use the name of the chef_environment.
+
+To accomplish this you need to create stub recipes like [recipes/prod.rb](test/cookbooks/poise-appenv_test/recipes/prod.rb)
+which just include the default recipe:
+
+```ruby
+include_recipe 'role-myapp'
+```
+
+The default recipe should contain the normal code for installing your application,
+generally this will be one more `include_recipe` to other cookbooks.
+
+Reference
+---------
+
+### node.app_environment
+
+`node.app_environment` returns the name of the detected application environment
+based on the configured cookbook. Note that this is a method, not a node attribute.
+
+### node.app_environment?(*names)
+
+`node.app_environment?` returns true if the current application environment
+is any of the given names.
+
+### node['poise-appenv']['cookbook']
+
+`node['poise-appenv']['cookbook']` is a node attribute used to configure which
+cookbook is searched for to determine the current application environment.
 
 Why?
 ----
